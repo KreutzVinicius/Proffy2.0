@@ -33,6 +33,12 @@ export const ProffyProvider: React.FC<{ children: React.ReactNode }> = ({
         }
     }, [proffys])
 
+    useEffect(() => {
+        if (classes.length === 0) {
+            getClasses()
+        }
+    }, [classes])
+
     const getProffys = async () => {
         // const response = await fetch('http://localhost:3333/proffys');
         // const data = await response.json();
@@ -69,6 +75,44 @@ export const ProffyProvider: React.FC<{ children: React.ReactNode }> = ({
             },
         ]
         setProffys(data)
+    }
+
+    const getClasses = async () => {
+        // const response = await fetch('http://localhost:3333/classes');
+        // const data = await response.json();
+        const data: Classes[] = [
+            {
+                id: 1,
+                subject: 'Química',
+                teacherName: 'Beatriz Santos',
+                date: '14/06/2024 16:30',
+                cost: 50,
+                teacherId: 0,
+                studentId: 0,
+                studentName: 'Maicon Douglas',
+            },
+            {
+                id: 2,
+                subject: 'Biologia',
+                teacherName: 'Lucas Mendes',
+                date: '15/06/2024 16:00',
+                cost: 50,
+                teacherId: 0,
+                studentId: 0,
+                studentName: 'João Pedro',
+            },
+            {
+                id: 3,
+                subject: 'Matemática',
+                teacherName: 'Rafael Oliveira',
+                date: '14/06/2024 16:00',
+                cost: 50,
+                teacherId: 0,
+                studentId: 0,
+                studentName: 'Will Smith',
+            },
+        ]
+        setClasses(data)
     }
 
     return (
