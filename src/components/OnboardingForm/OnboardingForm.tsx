@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./styles.css";
+import { subjects, weekdays } from "../../utils";
 
 
 interface OnboardingFormProps {
@@ -9,12 +9,7 @@ interface OnboardingFormProps {
 }
 
 const OnboardingForm = ({isTeacher = false, isEditing=false}:OnboardingFormProps) => {
-
     const navigate = useNavigate()
-
-    const [subjects, setSubjects] = useState<string[]>([])
-    const weekdays = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"]
-
 
     return(
     <div id="container">
