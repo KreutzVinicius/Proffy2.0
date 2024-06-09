@@ -8,14 +8,14 @@ const ShowAppointments: React.FC = () => {
     return (
         <div className="appointments-table-container">
             <span className="appointments-title"> Suas aulas</span>
-            {classes.length === 0 ? (
+            {classes.length !== 0 ? (
                 <table className="appointments-table">
                     <thead>
                         <tr>
                             <th>Matéria</th>
                             <th>{isTeacher ? 'Alunos' : 'Professor'}</th>
                             <th>Horario</th>
-                            <th>Options</th>
+                            <th>Whatsapp</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -24,6 +24,12 @@ const ShowAppointments: React.FC = () => {
                                 <td>{classItem.subject}</td>
                                 <td>{classItem.teacherName}</td>
                                 <td>{classItem.date}</td>
+                                <td>
+                                    <img
+                                        src="/images/icons/whatsapp.svg"
+                                        alt="WhatsApp"
+                                    />
+                                </td>
                             </tr>
                         ))}
                     </tbody>

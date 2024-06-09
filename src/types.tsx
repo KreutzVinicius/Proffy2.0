@@ -13,7 +13,6 @@ export type Proffy = {
     }>
 }
 
-
 export type Classes = {
     id: number
     subject: string

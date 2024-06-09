@@ -39,12 +39,7 @@ const ShowClasses = () => {
 
                     <div className="input-block">
                         <label>Hora</label>
-                        <input
-                            name="time"
-                            id="time"
-                            type="time"
-                            value="{{filters.time}}"
-                        />
+                        <input name="time" id="time" type="time" />
                     </div>
                 </form>
 

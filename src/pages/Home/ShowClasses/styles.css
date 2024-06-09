@@ -11,21 +11,21 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-button {
-        width: 100%;
-        height: 4rem;
-        background: var(--color-secondary);
-        color: var(--color-title-in-primary);
-        border: 0;
-        border-radius: 0.8rem;
-        cursor: pointer;
-        font: 700 1.6rem Archivo;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: background 0.2s;
-        text-decoration: none;
-    }
+        button {
+            width: 100%;
+            height: 4rem;
+            background: var(--color-secondary);
+            color: var(--color-title-in-primary);
+            border: 0;
+            border-radius: 0.8rem;
+            cursor: pointer;
+            font: 700 1.6rem Archivo;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            text-decoration: none;
+        }
     }
 
     .filter-classes-btn {
@@ -51,32 +51,32 @@ button {
         flex-direction: column;
         margin: 1.5rem;
         label {
-                font-size: 1.5rem;
-                color: var(--color-text-title);
-                padding-bottom: 0.25rem;
-            }
-        
-            select {
-                width: 100%;
-                height: 3rem;
-                border-radius: 0.8rem;
-                border: 1px solid var(--color-line-in-white);
-                background-color: #fff;
-                font: 1.6rem Archivo;
-                padding: 0 1.5rem;
-                background-color: #e6e6f0;
-            }
-        
-            input {
-                width: 100%;
-                height: 3rem;
-                border-radius: 0.8rem;
-                border: 1px solid var(--color-line-in-white);
-                background-color: #fff;
-                font: 1.6rem Archivo;
-                padding: 0 1.5rem;
-                background-color: #e6e6f0;
-            }
+            font-size: 1.5rem;
+            color: var(--color-text-title);
+            padding-bottom: 0.25rem;
+        }
+
+        select {
+            width: 100%;
+            height: 3rem;
+            border-radius: 0.8rem;
+            border: 1px solid var(--color-line-in-white);
+            background-color: #fff;
+            font: 1.6rem Archivo;
+            padding: 0 1.5rem;
+            background-color: #e6e6f0;
+        }
+
+        input {
+            width: 100%;
+            height: 3rem;
+            border-radius: 0.8rem;
+            border: 1px solid var(--color-line-in-white);
+            background-color: #fff;
+            font: 1.6rem Archivo;
+            padding: 0 1.5rem;
+            background-color: #e6e6f0;
+        }
     }
 
     .proffy-presentation {
@@ -104,8 +104,8 @@ button {
         display: flex;
         margin: 0 3rem;
         font-size: 1.25rem;
-        
-            color: var(--color-text-title);
+
+        color: var(--color-text-title);
     }
 
     .proffy-contact {
@@ -117,19 +117,19 @@ button {
         border-radius: 0.8rem;
     }
 
-        .proffy-price {
-            display: flex;
-            font-size: 1.25rem;
-            color: var(--color-small-info);
-    
-            strong {
-                padding: 0 1rem;
-                color: var(--color-primary-dark);
-            }
+    .proffy-price {
+        display: flex;
+        font-size: 1.25rem;
+        color: var(--color-small-info);
+
+        strong {
+            padding: 0 1rem;
+            color: var(--color-primary-dark);
         }
+    }
     .wpp-button {
         width: 20rem;
-            height: 5rem;
+        height: 5rem;
         background: var(--color-secondary);
         color: var(--color-title-in-primary);
         border: 0;
