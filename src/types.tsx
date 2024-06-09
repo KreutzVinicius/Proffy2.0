@@ -12,3 +12,15 @@ export type Proffy = {
         to: string
     }>
 }
+
+
+export type Classes = {
+    id: number
+    subject: string
+    cost: number
+    teacherId: number
+    teacherName: string
+    studentId: number
+    studentName: string
+    date: string
+}

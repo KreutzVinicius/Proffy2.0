@@ -23,8 +23,9 @@
     opacity: 0.6;
 }
 
-.page-header .top-bar-container > img {
+.page-header .top-bar-container>div>img {
     height: 1.6rem;
+    cursor: pointer;
 }
 
 .page-header .header-content {
@@ -47,4 +48,30 @@
     line-height: 2.6rem;
     color: var(--color-text-in-primary);
     margin-top: 2.4rem;
+}
+
+.top-right-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 20rem;
+    color: #fff;
+    font-size: 1.5rem;
+
+    .img-container {
+        width: 25px;
+        height: 25px;
+
+        >img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+
+.header-profile-link {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
 }

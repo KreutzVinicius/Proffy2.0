@@ -74,13 +74,13 @@ const ShowClasses = () => {
                         <div className="proffy-bio">{proffy.bio}</div>
 
                         <div className="proffy-contact">
-                            <p>
-                                Preço/hora<strong>R$ {proffy.cost}</strong>
+                            <p className="proffy-price">
+                                Preço/hora <strong>R$ {proffy.cost}</strong>
                             </p>
 
                             <a
                                 href={`https://api.whatsapp.com/send?l=pt_BR&phone=55${proffy.whatsapp}&text=Tenho interesse na sua aula de ${proffy.subject} ${proffy.name}`}
-                                className="button"
+                                className="wpp-button"
                             >
                                 <img
                                     src="/images/icons/whatsapp.svg"

@@ -1,0 +1,26 @@
+.appointments-table-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    width: 80rem;
+
+    .appointments-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+        font-size: 2rem;
+        font-weight: 700;
+    }
+
+    .no-appointments-message {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.5rem;
+        padding: 1.5rem;
+        margin: 2rem 0;
+    }
+
+}
