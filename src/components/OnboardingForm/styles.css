@@ -4,6 +4,17 @@
   background-color: #fff;
   border-radius: 0.8rem;
 
+  .profile-pic-container {
+    margin: 3rem;
+    display: flex;
+    justify-content: left;
+  }
+
+  .profile-pic {
+    width: 75px;
+    border-radius: 5rem;
+  }
+
   #create-class {
     margin-top: 3rem;
   }

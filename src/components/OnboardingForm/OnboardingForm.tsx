@@ -1,7 +1,16 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./styles.css";
 
-const GiveClassesForm = () => {
+
+interface OnboardingFormProps {
+    isTeacher?: boolean;
+    isEditing?: boolean;
+}
+
+const OnboardingForm = ({isTeacher = false, isEditing=false}:OnboardingFormProps) => {
+
+    const navigate = useNavigate()
 
     const [subjects, setSubjects] = useState<string[]>([])
     const weekdays = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"]
@@ -9,6 +18,15 @@ const GiveClassesForm = () => {
 
     return(
     <div id="container">
+
+        {isEditing && 
+        <div className="profile-pic-container">
+            <img className="profile-pic" src="/images/blank-picture.webp" alt="profile-pic"/>
+            <div>
+
+            </div>
+        </div>}
+
         <form action="/save-classes" id="create-class" method="POST">
 
             <fieldset>
@@ -18,6 +36,20 @@ const GiveClassesForm = () => {
                     <label>Nome completo</label>
                     <input name="name" id="name" required/>
                 </div>
+
+                {!isEditing && 
+                <div className="input-block">
+                    <label>Email</label>
+                    <input name="email" id="email" type="email" required/>
+                </div>
+                }
+
+                {!isEditing &&        
+                <div className="input-block">
+                    <label>Senha</label>
+                    <input name="password" id="password" type="password" required/>
+                </div>
+                }
 
                 <div className="input-block">
                     <label >
@@ -44,6 +76,7 @@ const GiveClassesForm = () => {
             </fieldset>
 
 
+           {isTeacher && ( <>
             <fieldset>
             <legend>Sobre a aula</legend>
                 <div className="select-block">
@@ -96,7 +129,9 @@ const GiveClassesForm = () => {
                 </div>
 
             </fieldset>
+            </>
 
+        )}
         </form>
 
         <div className="form-footer">
@@ -104,11 +139,11 @@ const GiveClassesForm = () => {
             <img src="/images/icons/warning.svg" alt="Aviso importante"/>
             <span style={{marginLeft: "1rem"}}> Importante! <br/> Preencha todos os dados </span>
             </div>
-            <button type="submit" className="form-save">Salvar cadastro</button>
+            <button type="submit" className="form-save" onClick={() => navigate("/home")}>Salvar cadastro</button>
         </div>
     </div>
 
 )
 }
 
-export default GiveClassesForm
+export default OnboardingForm
