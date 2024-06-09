@@ -1,12 +1,15 @@
-import './App.css';
-import AppRoutes from './routes';
+import './App.css'
+import { ProffyContext, ProffyProvider } from './context/proffyContext'
+import AppRoutes from './routes'
 
 function App() {
-  return (
-  <div className="App">
-  <AppRoutes/>
-  </div>
-  );
+    return (
+        <div className="App">
+            <ProffyProvider>
+                <AppRoutes />
+            </ProffyProvider>
+        </div>
+    )
 }
 
-export default App;
+export default App
