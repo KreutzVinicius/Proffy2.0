@@ -24,12 +24,6 @@ const Home = () => {
             Dar aulas
         </a>
         </div>
-
-        <p className="total-connections">
-        Total de 200 conexões já realizadas
-        <img src="/images/icons//purple-heart.svg" alt="Coração roxo"/>
-        </p>
-
   </div>
 )
 }
