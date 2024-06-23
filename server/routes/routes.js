@@ -1,13 +1,7 @@
 import { Router } from "express";
 import bodyParser from "body-parser";
 import * as mongo from "../services/mongo.js";
-import {
-  Db,
-  GridFSBucket,
-  MongoError,
-  MongoRuntimeError,
-  ObjectId,
-} from "mongodb";
+import { GridFSBucket, MongoError, MongoRuntimeError, ObjectId } from 'mongodb'
 
 const dbName = "proffy";
 
@@ -19,7 +13,7 @@ router.use(async function (req, res, next) {
   next();
 });
 
-const keys = ["user", "class", "student", "professor"];
+const keys = ['user', 'class']
 
 // Rota de login
 router.post('/login', async (req, res) => {

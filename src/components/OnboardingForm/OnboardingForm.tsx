@@ -1,8 +1,9 @@
 import { useNavigate } from 'react-router-dom'
 import './styles.css'
 import { subjects, weekdays } from '../../utils'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { AvailableTime, Classes, Proffy } from '../../types'
+import { ProffyContext } from '../../context/proffyContext'
 
 interface OnboardingFormProps {
     isTeacher?: boolean
@@ -23,9 +24,12 @@ const OnboardingForm = ({
         avatar: '',
         whatsapp: '',
         bio: '',
+        type: '',
     })
     const [newClasses, setNewClasses] = useState<Classes[]>([])
     const [newSchedules, setNewSchedules] = useState<AvailableTime[]>([])
+
+    const { createProffy } = useContext(ProffyContext)
 
     useEffect(() => {
         if (newClasses.length === 0) {
@@ -62,14 +66,15 @@ const OnboardingForm = ({
     }
 
     const saveProfile = async () => {
-        const payload = {
+        const payload: Proffy = {
             ...newProfile,
             classes: isTeacher ? newClasses : undefined,
             availableTime: isTeacher ? newSchedules : undefined,
+            type: isTeacher ? 'professor' : 'student',
         }
 
-        console.log(payload)
-
+        console.log(`🚀 ~ saveProfile ~ createProffy:`, payload)
+        createProffy(payload)
         // navigate('/home')
     }
 
@@ -415,3 +420,5 @@ const OnboardingForm = ({
 }
 
 export default OnboardingForm
+
+

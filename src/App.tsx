@@ -1,5 +1,5 @@
 import './App.css'
-import { ProffyContext, ProffyProvider } from './context/proffyContext'
+import { ProffyProvider } from './context/proffyContext'
 import AppRoutes from './routes'
 
 function App() {

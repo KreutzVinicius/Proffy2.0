@@ -8,6 +8,7 @@ export type Proffy = {
     bio?: string
     classes?: Classes[]
     availableTime?: AvailableTime[]
+    type: `student` | `professor` | ''
 }
 
 export type Classes = {
