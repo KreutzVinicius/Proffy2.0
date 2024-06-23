@@ -17,12 +17,12 @@ const keys = ['user', 'class']
 
 // Rota de login
 router.post('/login', async (req, res) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
   const collection = req.db.collection(`users`);
   const users = await collection.find({}).toArray();
-  const user = users.find(u => u.username === username && u.password === password);
+  const user = users.find(u => u.email === email && u.password === password);
   if (user) {
-      const token = jwt.sign({ username: user.username }, 'secret_key', { expiresIn: '1h' });
+      const token = jwt.sign({ email: user.email }, 'secret_key', { expiresIn: '1h' });
       res.cookie('auth_token', token, { httpOnly: false, sameSite: 'strict' });
       res.json({ ...user, password: undefined });
   } else {
