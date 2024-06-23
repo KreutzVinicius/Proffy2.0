@@ -1,19 +1,27 @@
 export type Proffy = {
     id: number
     name: string
-    avatar: string
+    email?: string
+    password?: string
+    avatar?: string
     whatsapp: string
-    bio: string
-    subject: string
-    cost: number
-    schedule: Array<{
-        week_day: number
-        from: string
-        to: string
-    }>
+    bio?: string
+    classes?: Classes[]
+    availableTime?: AvailableTime[]
 }
 
 export type Classes = {
+    subject: string
+    cost: number
+}
+
+export type AvailableTime = {
+    week_day: string
+    from: string
+    to: string
+}
+
+export type ScheduledClasses = {
     id: number
     subject: string
     cost: number
