@@ -1,11 +1,11 @@
-export const BASE_URL = '/api'
+export const BASE_URL = 'http://localhost:3001/api'
 
-async function login(username: string, password: string): Promise<any> {
+async function login(email: string, password: string): Promise<any> {
     try {
         const response = await fetch(`${BASE_URL}/login`, {
             method: 'POST',
             body: JSON.stringify({
-                username,
+                email,
                 password,
             }),
             headers: {

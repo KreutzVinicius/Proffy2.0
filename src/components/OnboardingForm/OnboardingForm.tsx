@@ -75,7 +75,7 @@ const OnboardingForm = ({
 
         console.log(`🚀 ~ saveProfile ~ createProffy:`, payload)
         createProffy(payload)
-        // navigate('/home')
+        navigate('/home')
     }
 
     return (
