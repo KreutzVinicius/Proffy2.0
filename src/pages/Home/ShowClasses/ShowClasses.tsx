@@ -62,7 +62,9 @@ const ShowClasses = () => {
                             />
                             <div className="proffy-presentation">
                                 <strong>{proffy.name}</strong>
-                                <span>{proffy.subject}</span>
+                                <span>
+                                    {proffy?.classes?.[0].subject ?? ''}
+                                </span>
                             </div>
                         </div>
 
@@ -70,11 +72,12 @@ const ShowClasses = () => {
 
                         <div className="proffy-contact">
                             <p className="proffy-price">
-                                Preço/hora <strong>R$ {proffy.cost}</strong>
+                                Preço/hora{' '}
+                                <strong>R$ {proffy?.classes?.[0].cost}</strong>
                             </p>
 
                             <a
-                                href={`https://api.whatsapp.com/send?l=pt_BR&phone=55${proffy.whatsapp}&text=Tenho interesse na sua aula de ${proffy.subject} ${proffy.name}`}
+                                href={`https://api.whatsapp.com/send?l=pt_BR&phone=55${proffy.whatsapp}&text=Tenho interesse na sua aula de ${proffy?.classes?.[0].subject} ${proffy.name}`}
                                 className="wpp-button"
                             >
                                 <img
