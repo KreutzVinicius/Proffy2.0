@@ -6,7 +6,7 @@ interface ProffyContextData {
     classes: ScheduledClasses[]
     isTeacher: boolean
     isLogged: boolean
-    loginHandler: (email: string, password: string) => void
+    loginHandler: (email: string, password: string) => Promise<boolean>
     createProffy: (proffy: Proffy) => void
 }
 
@@ -15,7 +15,7 @@ const proffyInitialValues: ProffyContextData = {
     classes: [],
     isTeacher: false,
     isLogged: false,
-    loginHandler: () => {},
+    loginHandler: async () => false,
     createProffy: () => {},
 }
 
@@ -52,17 +52,20 @@ export const ProffyProvider: React.FC<{ children: React.ReactNode }> = ({
     const loginHandler = async (email: string, password: string) => {
         const response = await dataService.login(email, password)
         console.log(`🚀 ~ loginHandler ~ response:`, response)
-        if (response.status === 200) {
+        if (response) {
             setIsLogged(response)
             setUser(response.data)
+            return true
         } else {
             setIsLogged(false)
             console.log('Login failed')
+            return false
         }
     }
 
     const getProfessors = async () => {
         const response = await dataService.get('user')
+        console.log(`🚀 ~ getProfessors ~ response:`, response)
         if (response?.status === 200) {
             const professors = response.data.filter(
                 (user: Proffy) => user.type === 'professor'
@@ -72,41 +75,17 @@ export const ProffyProvider: React.FC<{ children: React.ReactNode }> = ({
     }
 
     const getClasses = async () => {
-        // const response = await fetch('http://localhost:3333/classes');
-        // const data = await response.json();
-        const data: ScheduledClasses[] = [
-            {
-                id: 1,
-                subject: 'Química',
-                teacherName: 'Beatriz Santos',
-                date: '14/06/2024 16:30',
-                cost: 50,
-                teacherId: 0,
-                studentId: 0,
-                studentName: 'Maicon Douglas',
-            },
-            {
-                id: 2,
-                subject: 'Biologia',
-                teacherName: 'Lucas Mendes',
-                date: '15/06/2024 16:00',
-                cost: 50,
-                teacherId: 0,
-                studentId: 0,
-                studentName: 'João Pedro',
-            },
-            {
-                id: 3,
-                subject: 'Matemática',
-                teacherName: 'Rafael Oliveira',
-                date: '14/06/2024 16:00',
-                cost: 50,
-                teacherId: 0,
-                studentId: 0,
-                studentName: 'Will Smith',
-            },
-        ]
-        setClasses(data)
+        const response = await dataService.get('class')
+        console.log(`🚀 ~ getClasses ~ response:`, response)
+        if (response?.status === 200) {
+            const classes = response.data.filter(
+                (scheduledClass: ScheduledClasses) =>
+                    isTeacher
+                        ? scheduledClass.teacherId === user?.id
+                        : scheduledClass.studentId === user?.id
+            )
+            setClasses(classes)
+        }
     }
 
     return (

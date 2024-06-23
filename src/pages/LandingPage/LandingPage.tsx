@@ -1,8 +1,21 @@
 import { useNavigate } from 'react-router-dom'
 import './styles.css'
+import { useContext, useState } from 'react'
+import { ProffyContext } from '../../context/proffyContext'
 
 const LandingPage = () => {
     const navigate = useNavigate()
+
+    const { loginHandler } = useContext(ProffyContext)
+
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+
+    const handleLogin = async () => {
+        if (await loginHandler(email, password)) {
+            navigate('/home')
+        }
+    }
 
     return (
         <div id="page-landing">
@@ -19,20 +32,22 @@ const LandingPage = () => {
 
             <div className="login-inputs">
                 <input
-                    type="text"
-                    placeholder="Usuário"
+                    type="email"
+                    placeholder="Email"
                     className="home-input"
+                    onChange={(e) => setEmail(e.target.value)}
                 />
                 <input
                     type="password"
                     placeholder="Senha"
                     className="home-input"
+                    onChange={(e) => setPassword(e.target.value)}
                 />
 
                 <button
                     type="submit"
                     className="home-btn"
-                    onClick={() => navigate('/home')}
+                    onClick={handleLogin}
                 >
                     Login
                 </button>
