@@ -1,5 +1,25 @@
 export const BASE_URL = '/api';
 
+async function login(username,password){
+    try {
+        const response = await fetch(`${BASE_URL}/login`,{
+            method: 'POST',
+            body: {
+                username,
+                password
+            },
+            headers: {
+              "Content-Type": 'application/json'
+            }
+        })
+        // if status 401, user/password invalid
+        const responseData = await response.json();
+        return responseData;
+    } catch (error) {
+        console.error('Error creating record:', error);
+    }
+}
+
 async function putFile(id,file){
     try {
         const response = await fetch(`${BASE_URL}/fs/${id}`,{
@@ -99,6 +119,7 @@ async function remove(endpoint, id) {
 }
 
 export default {
+    login,
     create,
     getById,
     get,
