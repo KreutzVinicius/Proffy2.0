@@ -10,10 +10,15 @@ const LandingPage = () => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [showError, setShowError] = useState(false)
 
     const handleLogin = async () => {
-        if (await loginHandler(email, password)) {
+        const isLogged = await loginHandler(email, password)
+        if (isLogged) {
             navigate('/home')
+        }
+        else{
+            setShowError(true)
         }
     }
 
@@ -43,6 +48,7 @@ const LandingPage = () => {
                     className="home-input"
                     onChange={(e) => setPassword(e.target.value)}
                 />
+                {showError && <p className="error">Email ou senha inválidos</p>}
 
                 <button
                     type="submit"

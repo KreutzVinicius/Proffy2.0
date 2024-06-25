@@ -81,7 +81,7 @@ export const ProffyProvider: React.FC<{ children: React.ReactNode }> = ({
     const loginHandler = async (email: string, password: string) => {
         const response = await dataService.login(email, password)
         console.log(`🚀 ~ loginHandler ~ response:`, response)
-        if (response._id) {
+        if (response) {
             setIsLogged(true)
             setUser(response)
             return true

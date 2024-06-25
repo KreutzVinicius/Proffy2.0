@@ -8,6 +8,13 @@
     justify-content: space-between;
 }
 
+.error{
+    color: red;
+    font-size: 1.6rem;
+    margin-top: 1rem;
+
+}
+
 .logo-container img {
     height: 10rem;
 }
