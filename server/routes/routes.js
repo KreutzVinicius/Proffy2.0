@@ -123,6 +123,21 @@ for (const key of keys) {
     }
   });
 
+  // Read by id
+  router.get(`/${key}/:id`, async (req, res) => {
+    try {
+      const collection = req.db.collection(`${key}`);
+      const result = await collection.findOne({_id: new ObjectId(req.params.id)});
+      if (result) {
+        return res.status(200).json(result);
+      } else {
+        return res.status(404).json({ error: "Object not found" });
+      }
+    } catch (error) {
+      return res.status(500).send(error);
+    }
+  });
+
   // Update
   router.put(`/${key}/:id`, async (req, res) => {
     try {
