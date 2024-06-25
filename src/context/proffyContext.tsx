@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from 'react'
 import { ScheduledClasses, Proffy } from '../types'
 import dataService from '../service/dataservice'
+import { get } from 'http'
 interface ProffyContextData {
     user: Proffy | null
     proffys: Proffy[]
@@ -55,15 +56,25 @@ export const ProffyProvider: React.FC<{ children: React.ReactNode }> = ({
         }
     }, [user])
 
+    const getProffy = async (id: string) => {
+        console.log(`🚀 ~ getProffy ~ id:`, id)
+        const response = await dataService.getById('user', id)
+        console.log(`🚀 ~ getProffy ~ response:`, response)
+        if (response) {
+            console.log(`🚀 ~ getProffy ~ response:`, response)
+            setUser(response)
+        }
+    }
+
     const createProffy = async (proffy: Proffy) => {
         const response = await dataService.create('user', proffy)
         console.log(`🚀 ~ createProffy ~ response:`, response)
     }
 
     const updateProffy = async (proffy: Proffy) => {
-        console.log(`🚀 ~ updateProffy ~ proffy:`, proffy)
-        const response = await dataService.update('user', proffy._id, proffy)
-        console.log(`🚀 ~ updateProffy ~ response:`, response)
+        await dataService.update('user', proffy._id, proffy).then(() => {
+            getProffy(proffy?._id ?? '')
+        })
     }
 
     const loginHandler = async (email: string, password: string) => {
@@ -83,10 +94,11 @@ export const ProffyProvider: React.FC<{ children: React.ReactNode }> = ({
     const getProfessors = async () => {
         const response = await dataService.get('user')
         console.log(`🚀 ~ getProfessors ~ response:`, response)
-        if (response?.status === 200) {
-            const professors = response.data.filter(
+        if (response) {
+            const professors = response.filter(
                 (user: Proffy) => user.type === 'professor'
             )
+            console.log(`🚀 ~ getProfessors ~ professors:`, professors)
             setProffys(professors)
         }
     }
