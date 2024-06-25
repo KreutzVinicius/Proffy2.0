@@ -16,8 +16,10 @@ const OnboardingForm = ({
 }: OnboardingFormProps) => {
     const navigate = useNavigate()
 
+    const { createProffy, updateProffy, isLogged, user } =
+        useContext(ProffyContext)
+
     const [newProfile, setNewProfile] = useState<Proffy>({
-        id: 0,
         name: '',
         email: '',
         password: '',
@@ -26,10 +28,19 @@ const OnboardingForm = ({
         bio: '',
         type: '',
     })
-    const [newClasses, setNewClasses] = useState<Classes[]>([])
-    const [newSchedules, setNewSchedules] = useState<AvailableTime[]>([])
+    const [newClasses, setNewClasses] = useState<Classes[]>(user?.classes ?? [])
+    const [newSchedules, setNewSchedules] = useState<AvailableTime[]>(
+        user?.availableTime ?? []
+    )
 
-    const { createProffy } = useContext(ProffyContext)
+    useEffect(() => {
+        if (isLogged && user) {
+            console.log(`🚀 ~ useEffect ~ user:`, user)
+            setNewProfile(user)
+            setNewClasses(user.classes || [])
+            setNewSchedules(user.availableTime || [])
+        }
+    }, [isLogged, user])
 
     useEffect(() => {
         if (newClasses.length === 0) {
@@ -74,7 +85,13 @@ const OnboardingForm = ({
         }
 
         console.log(`🚀 ~ saveProfile ~ createProffy:`, payload)
-        createProffy(payload)
+
+        if (isEditing && user) {
+            payload._id = user._id
+            updateProffy(payload)
+        } else {
+            createProffy(payload)
+        }
         navigate('/home')
     }
 
@@ -107,6 +124,7 @@ const OnboardingForm = ({
                                     name: e.target.value,
                                 })
                             }
+                            value={newProfile.name}
                         />
                     </div>
 
@@ -124,6 +142,7 @@ const OnboardingForm = ({
                                         email: e.target.value,
                                     })
                                 }
+                                value={newProfile.email}
                             />
                         </div>
                     )}
@@ -142,6 +161,7 @@ const OnboardingForm = ({
                                         password: e.target.value,
                                     })
                                 }
+                                value={newProfile.password}
                             />
                         </div>
                     )}
@@ -164,6 +184,7 @@ const OnboardingForm = ({
                                     avatar: e.target.value,
                                 })
                             }
+                            value={newProfile.avatar}
                         />
                     </div>
 
@@ -184,6 +205,7 @@ const OnboardingForm = ({
                                     whatsapp: e.target.value,
                                 })
                             }
+                            value={newProfile.whatsapp}
                         />
                     </div>
 
@@ -199,6 +221,7 @@ const OnboardingForm = ({
                                     bio: e.target.value,
                                 })
                             }
+                            value={newProfile.bio}
                         />
                     </div>
                 </fieldset>
@@ -226,7 +249,7 @@ const OnboardingForm = ({
                                                 name="subject"
                                                 id="subject"
                                                 required
-                                                onSelect={(e) => {
+                                                onChange={(e) => {
                                                     setNewClasses(
                                                         (prevClasses) => {
                                                             const updatedClasses =
@@ -240,6 +263,7 @@ const OnboardingForm = ({
                                                         }
                                                     )
                                                 }}
+                                                value={_subject.subject}
                                             >
                                                 <option value="">
                                                     Selecione uma opção
@@ -279,6 +303,7 @@ const OnboardingForm = ({
                                                         }
                                                     )
                                                 }
+                                                value={_subject.cost}
                                             />
                                         </div>
                                     </div>
@@ -306,7 +331,7 @@ const OnboardingForm = ({
                                             <select
                                                 name="weekday[]"
                                                 required
-                                                onSelect={(e) => {
+                                                onChange={(e) => {
                                                     setNewSchedules(
                                                         (prevSchedules) => {
                                                             const updatedSchedules =
@@ -322,6 +347,7 @@ const OnboardingForm = ({
                                                         }
                                                     )
                                                 }}
+                                                value={_schedule.week_day}
                                             >
                                                 {weekdays.map(
                                                     (
@@ -361,6 +387,7 @@ const OnboardingForm = ({
                                                         }
                                                     )
                                                 }}
+                                                value={_schedule.from}
                                             />
                                         </div>
 
@@ -386,6 +413,7 @@ const OnboardingForm = ({
                                                         }
                                                     )
                                                 }}
+                                                value={_schedule.to}
                                             />
                                         </div>
                                     </div>

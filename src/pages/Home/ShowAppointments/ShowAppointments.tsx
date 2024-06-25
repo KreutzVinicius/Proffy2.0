@@ -20,7 +20,7 @@ const ShowAppointments: React.FC = () => {
                     </thead>
                     <tbody>
                         {classes.map((classItem) => (
-                            <tr key={classItem.id}>
+                            <tr key={classItem._id}>
                                 <td>{classItem.subject}</td>
                                 <td>{classItem.teacherName}</td>
                                 <td>{classItem.date}</td>

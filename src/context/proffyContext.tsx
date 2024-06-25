@@ -2,21 +2,25 @@ import React, { createContext, useEffect, useState } from 'react'
 import { ScheduledClasses, Proffy } from '../types'
 import dataService from '../service/dataservice'
 interface ProffyContextData {
+    user: Proffy | null
     proffys: Proffy[]
     classes: ScheduledClasses[]
     isTeacher: boolean
     isLogged: boolean
     loginHandler: (email: string, password: string) => Promise<boolean>
     createProffy: (proffy: Proffy) => void
+    updateProffy: (proffy: Proffy) => void
 }
 
 const proffyInitialValues: ProffyContextData = {
+    user: null,
     proffys: [],
     classes: [],
     isTeacher: false,
     isLogged: false,
     loginHandler: async () => false,
     createProffy: () => {},
+    updateProffy: () => {},
 }
 
 export const ProffyContext =
@@ -44,17 +48,30 @@ export const ProffyProvider: React.FC<{ children: React.ReactNode }> = ({
         }
     }, [classes])
 
+    useEffect(() => {
+        if (user) {
+            setIsTeacher(user.type === 'professor')
+            setIsLogged(true)
+        }
+    }, [user])
+
     const createProffy = async (proffy: Proffy) => {
         const response = await dataService.create('user', proffy)
         console.log(`🚀 ~ createProffy ~ response:`, response)
     }
 
+    const updateProffy = async (proffy: Proffy) => {
+        console.log(`🚀 ~ updateProffy ~ proffy:`, proffy)
+        const response = await dataService.update('user', proffy._id, proffy)
+        console.log(`🚀 ~ updateProffy ~ response:`, response)
+    }
+
     const loginHandler = async (email: string, password: string) => {
         const response = await dataService.login(email, password)
         console.log(`🚀 ~ loginHandler ~ response:`, response)
-        if (response) {
-            setIsLogged(response)
-            setUser(response.data)
+        if (response._id) {
+            setIsLogged(true)
+            setUser(response)
             return true
         } else {
             setIsLogged(false)
@@ -81,8 +98,8 @@ export const ProffyProvider: React.FC<{ children: React.ReactNode }> = ({
             const classes = response.data.filter(
                 (scheduledClass: ScheduledClasses) =>
                     isTeacher
-                        ? scheduledClass.teacherId === user?.id
-                        : scheduledClass.studentId === user?.id
+                        ? scheduledClass.teacherId === user?._id
+                        : scheduledClass.studentId === user?._id
             )
             setClasses(classes)
         }
@@ -91,12 +108,14 @@ export const ProffyProvider: React.FC<{ children: React.ReactNode }> = ({
     return (
         <ProffyContext.Provider
             value={{
+                user,
                 proffys,
                 classes,
                 isTeacher,
                 isLogged,
                 loginHandler,
                 createProffy,
+                updateProffy,
             }}
         >
             {children}

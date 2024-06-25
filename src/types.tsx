@@ -1,5 +1,5 @@
 export type Proffy = {
-    id: number
+    _id?: string
     name: string
     email?: string
     password?: string
@@ -23,12 +23,12 @@ export type AvailableTime = {
 }
 
 export type ScheduledClasses = {
-    id: number
+    _id?: string
     subject: string
     cost: number
-    teacherId: number
+    teacherId: string
     teacherName: string
-    studentId: number
+    studentId: string
     studentName: string
     date: string
 }

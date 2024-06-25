@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import './styles.css'
 import { ProffyContext } from '../../context/proffyContext'
 import { useNavigate } from 'react-router-dom'
@@ -16,11 +16,11 @@ const Header = ({ content, subcontent }: HeaderProps) => {
     return (
         <div className="page-header">
             <div className="top-bar-container">
-                <a href="/">
+                <a href={isLogged ? '/' : '/home'}>
                     <img src="images/icons/back.svg" alt="Voltar" />
                 </a>
                 <div className="top-right-header">
-                    {!isLogged && (
+                    {isLogged && (
                         <div
                             className="header-profile-link"
                             onClick={() => navigate('/edit-profile')}
