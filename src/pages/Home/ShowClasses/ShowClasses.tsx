@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import { ProffyContext } from '../../../context/proffyContext'
 import './styles.css'
 import { subjects, weekdays } from '../../../utils'
+import blank from '../../../assets/blank-picture.webp'
 
 const ShowClasses = () => {
     const { proffys } = useContext(ProffyContext)
@@ -52,43 +53,42 @@ const ShowClasses = () => {
                         Nenhum professor encontrado com a sua pesquisa
                     </p>
                 )}
-                {proffys.map((proffy) => (
-                    <div className="teacher-item">
-                        <div className="profile-pic-container">
-                            <img
-                                className="profile-pic"
-                                src={proffy.avatar}
-                                alt={proffy.name}
-                            />
-                            <div className="proffy-presentation">
-                                <strong>{proffy.name}</strong>
-                                <span>
-                                    {proffy?.classes?.[0].subject ?? ''}
-                                </span>
+                {proffys.map((proffy) =>
+                    proffy?.classes?.map((classe) => (
+                        <div className="teacher-item">
+                            <div className="profile-pic-container">
+                                <img
+                                    className="profile-pic"
+                                    src={proffy.avatar || blank}
+                                    alt={proffy.name}
+                                />
+                                <div className="proffy-presentation">
+                                    <strong>{proffy.name}</strong>
+                                    <span>{classe.subject ?? ''}</span>
+                                </div>
+                            </div>
+
+                            <div className="proffy-bio">{proffy.bio}</div>
+
+                            <div className="proffy-contact">
+                                <p className="proffy-price">
+                                    Preço/hora <strong>R$ {classe.cost}</strong>
+                                </p>
+
+                                <a
+                                    href={`https://api.whatsapp.com/send?l=pt_BR&phone=55${proffy.whatsapp}&text=Tenho interesse na sua aula de ${proffy?.classes?.[0].subject} ${proffy.name}`}
+                                    className="wpp-button"
+                                >
+                                    <img
+                                        src="/images/icons/whatsapp.svg"
+                                        alt="WhatsApp"
+                                    />
+                                    Entrar em contato
+                                </a>
                             </div>
                         </div>
-
-                        <div className="proffy-bio">{proffy.bio}</div>
-
-                        <div className="proffy-contact">
-                            <p className="proffy-price">
-                                Preço/hora{' '}
-                                <strong>R$ {proffy?.classes?.[0].cost}</strong>
-                            </p>
-
-                            <a
-                                href={`https://api.whatsapp.com/send?l=pt_BR&phone=55${proffy.whatsapp}&text=Tenho interesse na sua aula de ${proffy?.classes?.[0].subject} ${proffy.name}`}
-                                className="wpp-button"
-                            >
-                                <img
-                                    src="/images/icons/whatsapp.svg"
-                                    alt="WhatsApp"
-                                />
-                                Entrar em contato
-                            </a>
-                        </div>
-                    </div>
-                ))}
+                    ))
+                )}
             </div>
         </div>
     )

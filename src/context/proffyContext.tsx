@@ -1,11 +1,9 @@
 import React, { createContext, useEffect, useState } from 'react'
-import { ScheduledClasses, Proffy } from '../types'
+import { Proffy } from '../types'
 import dataService from '../service/dataservice'
-import { get } from 'http'
 interface ProffyContextData {
     user: Proffy | null
     proffys: Proffy[]
-    classes: ScheduledClasses[]
     isTeacher: boolean
     isLogged: boolean
     loginHandler: (email: string, password: string) => Promise<boolean>
@@ -16,7 +14,6 @@ interface ProffyContextData {
 const proffyInitialValues: ProffyContextData = {
     user: null,
     proffys: [],
-    classes: [],
     isTeacher: false,
     isLogged: false,
     loginHandler: async () => false,
@@ -32,7 +29,6 @@ export const ProffyProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
     const [user, setUser] = useState<Proffy | null>(null)
     const [proffys, setProffys] = useState<Proffy[]>([])
-    const [classes, setClasses] = useState<ScheduledClasses[]>([])
     const [isTeacher, setIsTeacher] = useState<boolean>(false)
 
     const [isLogged, setIsLogged] = useState<boolean>(false)
@@ -42,12 +38,6 @@ export const ProffyProvider: React.FC<{ children: React.ReactNode }> = ({
             getProfessors()
         }
     }, [proffys])
-
-    useEffect(() => {
-        if (classes.length === 0) {
-            getClasses()
-        }
-    }, [classes])
 
     useEffect(() => {
         if (user) {
@@ -103,26 +93,11 @@ export const ProffyProvider: React.FC<{ children: React.ReactNode }> = ({
         }
     }
 
-    const getClasses = async () => {
-        const response = await dataService.get('class')
-        console.log(`🚀 ~ getClasses ~ response:`, response)
-        if (response?.status === 200) {
-            const classes = response.data.filter(
-                (scheduledClass: ScheduledClasses) =>
-                    isTeacher
-                        ? scheduledClass.teacherId === user?._id
-                        : scheduledClass.studentId === user?._id
-            )
-            setClasses(classes)
-        }
-    }
-
     return (
         <ProffyContext.Provider
             value={{
                 user,
                 proffys,
-                classes,
                 isTeacher,
                 isLogged,
                 loginHandler,

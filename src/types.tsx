@@ -21,14 +21,3 @@ export type AvailableTime = {
     from: string
     to: string
 }
-
-export type ScheduledClasses = {
-    _id?: string
-    subject: string
-    cost: number
-    teacherId: string
-    teacherName: string
-    studentId: string
-    studentName: string
-    date: string
-}

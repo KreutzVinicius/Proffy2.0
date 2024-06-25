@@ -4,6 +4,7 @@ import { subjects, weekdays } from '../../utils'
 import { useContext, useEffect, useState } from 'react'
 import { AvailableTime, Classes, Proffy } from '../../types'
 import { ProffyContext } from '../../context/proffyContext'
+import blank from '../../assets/blank-picture.webp'
 
 interface OnboardingFormProps {
     isTeacher?: boolean
@@ -101,10 +102,9 @@ const OnboardingForm = ({
                 <div className="profile-pic-container">
                     <img
                         className="profile-pic"
-                        src="/images/blank-picture.webp"
-                        alt="profile-pic"
+                        src={user?.avatar || blank}
+                        alt={user?.name}
                     />
-                    <div></div>
                 </div>
             )}
 
