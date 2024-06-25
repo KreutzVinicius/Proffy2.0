@@ -98,7 +98,7 @@ async function update(endpoint: string, id: any, data: any): Promise<any> {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(data),
+            body: JSON.stringify({...data, _id: undefined}),
         })
         const responseData = await response.json()
         return responseData
