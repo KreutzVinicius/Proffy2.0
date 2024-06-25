@@ -1,18 +1,30 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { ProffyContext } from '../../../context/proffyContext'
 import './styles.css'
 import { subjects, weekdays } from '../../../utils'
 import blank from '../../../assets/blank-picture.webp'
 
 const ShowClasses = () => {
-    const { proffys } = useContext(ProffyContext)
+    const { searchProffys, resetFilter, filterProffys } =
+        useContext(ProffyContext)
+
+    const [subject, setSubject] = useState('')
+    const [weekday, setWeekday] = useState('')
+
+    const onSubmit = () => {
+        filterProffys(subject, weekday)
+    }
     return (
         <div className="show-classes-container">
             <div className="find-content">
                 <form id="search-teachers">
                     <div className="select-block">
                         <label>Matéria</label>
-                        <select name="subject" id="subject">
+                        <select
+                            name="subject"
+                            id="subject"
+                            onChange={(e) => setSubject(e.target.value)}
+                        >
                             <option value="">Selecione uma opção</option>
                             {subjects.map((subject) => {
                                 return (
@@ -26,7 +38,11 @@ const ShowClasses = () => {
 
                     <div className="select-block">
                         <label>Dia da semana</label>
-                        <select name="weekday" id="weekday">
+                        <select
+                            name="weekday"
+                            id="weekday"
+                            onChange={(e) => setWeekday(e.target.value)}
+                        >
                             <option value="">Selecione uma opção</option>
                             {weekdays.map((weekday, index) => {
                                 return (
@@ -43,17 +59,27 @@ const ShowClasses = () => {
                         <input name="time" id="time" type="time" />
                     </div>
                 </form>
+                <div className="button-container">
+                    <button className="filter-classes-btn" onClick={onSubmit}>
+                        Filtrar
+                    </button>
 
-                <button className="filter-classes-btn">Filtrar</button>
+                    <button
+                        className="filter-classes-btn"
+                        onClick={resetFilter}
+                    >
+                        Resetar Filtro
+                    </button>
+                </div>
             </div>
 
             <div>
-                {proffys.length === 0 && (
+                {searchProffys.length === 0 && (
                     <p className="no-results">
                         Nenhum professor encontrado com a sua pesquisa
                     </p>
                 )}
-                {proffys.map((proffy) =>
+                {searchProffys.map((proffy) =>
                     proffy?.classes?.map((classe) => (
                         <div className="teacher-item">
                             <div className="profile-pic-container">

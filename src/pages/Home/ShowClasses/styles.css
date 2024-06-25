@@ -161,4 +161,9 @@
         margin: 12rem auto;
         text-align: center;
     }
+.button-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
 }
